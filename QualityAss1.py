@@ -1,7 +1,6 @@
 import unittest
 from parameterized import parameterized
 from Solution import Solution
-from parameterized import parameterized 
 
 
 class TestSlidingWindowMaximum(unittest.TestCase):
@@ -56,9 +55,7 @@ class TestSlidingWindowMaximum(unittest.TestCase):
         expected = [5, 6, 7]
         self.assertEqual(self.solution.maxSlidingWindow(nums, k), expected)
 
-    # Additional Parameterized Tests
-
-    # New parameterized test cases
+        # parameterized test cases
     @parameterized.expand([
         ([1, 2, 3, 4], 2, [2, 3, 4]),
         ([7, 6, 5, 4, 3], 2, [7, 6, 5, 4]),
