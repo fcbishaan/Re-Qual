@@ -1,29 +1,6 @@
 import unittest
-from typing import List
-import collections
-
-class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-        output = []
-        q = collections.deque()  # index
-        l = r = 0
-        # O(n) O(n)
-        while r < len(nums):
-            # pop smaller values from q
-            while q and nums[q[-1]] < nums[r]:
-                q.pop()
-            q.append(r)
-
-            # remove left val from window
-            if l > q[0]:
-                q.popleft()
-
-            if (r + 1) >= k:
-                output.append(nums[q[0]])
-                l += 1
-            r += 1
-
-        return output
+from parameterized import parameterized
+from Solution import Solution
 
 class TestSlidingWindowMaximum(unittest.TestCase):
     def setUp(self):
@@ -75,6 +52,24 @@ class TestSlidingWindowMaximum(unittest.TestCase):
         nums = [1, 2, 3, 4, 5, 6, 7]
         k = 5
         expected = [5, 6, 7]
+        self.assertEqual(self.solution.maxSlidingWindow(nums, k), expected)
+
+    # Additional Parameterized Tests
+
+    # Boundary Value Analysis (BVA) Tests
+    @parameterized.expand([
+        ([1], 1, [1]),
+        ([1, 2, 3, 4, 5, 6, 7], 7, [7]),
+    ])
+    def test_boundary(self, nums, k, expected):
+        self.assertEqual(self.solution.maxSlidingWindow(nums, k), expected)
+
+    # Equivalence Partitioning (EP) Tests
+    @parameterized.expand([
+        ([1, 2, 3], 2, [2, 3]),
+        ([1, 2, 3, 4, 5, 6, 7], 5, [5, 6, 7]),
+    ])
+    def test_equivalence(self, nums, k, expected):
         self.assertEqual(self.solution.maxSlidingWindow(nums, k), expected)
 
 if __name__ == '__main__':
