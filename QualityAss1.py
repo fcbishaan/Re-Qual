@@ -1,6 +1,8 @@
 import unittest
 from parameterized import parameterized
 from Solution import Solution
+from parameterized import parameterized 
+
 
 class TestSlidingWindowMaximum(unittest.TestCase):
     def setUp(self):
@@ -56,20 +58,25 @@ class TestSlidingWindowMaximum(unittest.TestCase):
 
     # Additional Parameterized Tests
 
-    # Boundary Value Analysis (BVA) Tests
+    # New parameterized test cases
     @parameterized.expand([
-        ([1], 1, [1]),
-        ([1, 2, 3, 4, 5, 6, 7], 7, [7]),
+        ([1, 2, 3, 4], 2, [2, 3, 4]),
+        ([7, 6, 5, 4, 3], 2, [7, 6, 5, 4]),
+        ([1, 3, 5, 7], 1, [1, 3, 5, 7]),
+        ([9, 7, 5, 3], 3, [9, 7]),
+        ([5, 5, 5, 5, 5], 2, [5, 5, 5, 5]),
+        ([1, 2, 3, 4, 5, 6], 4, [4, 5, 6]),
+        ([1, 2, 3, 4, 5, 6], 6, [6]),
+        ([1, 2, 3, 4, 5, 6], 7, []),
+        ([], 3, []),  # Empty array
+        ([1, 1, 1, 1], 4, [1]),  # All elements are the same
+        ([4, 3, 2, 1], 4, [4]),  # Elements in descending order
+        ([1, 2, 3, 4], 1, [1, 2, 3, 4]),  # k equal to 1
+        ([1, 2, 3, 4], 4, [4]),  # k equal to array length
+        ([1, 1, 2, 2, 3, 3], 3, [2, 2, 3, 3]),  # Duplicate elements
+        ([1, 2, -1, 4, 5, -2, 3], 3, [2, 4, 5, 5, 5]),  # Negative values
     ])
-    def test_boundary(self, nums, k, expected):
-        self.assertEqual(self.solution.maxSlidingWindow(nums, k), expected)
-
-    # Equivalence Partitioning (EP) Tests
-    @parameterized.expand([
-        ([1, 2, 3], 2, [2, 3]),
-        ([1, 2, 3, 4, 5, 6, 7], 5, [5, 6, 7]),
-    ])
-    def test_equivalence(self, nums, k, expected):
+    def test_additional_cases(self, nums, k, expected):
         self.assertEqual(self.solution.maxSlidingWindow(nums, k), expected)
 
 if __name__ == '__main__':
